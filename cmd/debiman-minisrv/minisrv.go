@@ -38,10 +38,33 @@ var fileNotFound = errors.New("File not found")
 
 func serveFile(w http.ResponseWriter, r *http.Request) error {
 	compressed := false
-	path := filepath.Join(*servingDir, r.URL.Path)
+
+	// 1. Rendiamo assoluto e pulito il percorso base
+	baseDir, err := filepath.Abs(*servingDir)
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return nil
+	}
+
+	// 2. Uniamo i percorsi e rendiamo assoluto il target
+	targetPath := filepath.Join(baseDir, r.URL.Path)
+	path, err := filepath.Abs(targetPath)
+	if err != nil {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return nil
+	}
+
+	// 3. Verifichiamo il prefisso (Evitiamo il Path Traversal)
+	rel, err := filepath.Rel(baseDir, path)
+	if err != nil || strings.HasPrefix(rel, "..") {
+		http.Error(w, "Forbidden", http.StatusForbidden)
+		return nil
+	}
+
 	if r.URL.Path == "/" {
 		path = filepath.Join(path, "index.html")
 	}
+
 	f, err := os.Open(path)
 	if err != nil {
 		if os.IsNotExist(err) {
