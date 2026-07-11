@@ -1,16 +1,16 @@
 module github.com/Debian/debiman
 
-go 1.24.0
+go 1.26
 
 require (
 	github.com/golang/protobuf v1.5.4
-	golang.org/x/crypto v0.45.0
-	golang.org/x/net v0.47.0
-	golang.org/x/sync v0.18.0
-	golang.org/x/sys v0.38.0
-	golang.org/x/text v0.31.0
+	golang.org/x/crypto v0.54.0
+	golang.org/x/net v0.57.0
+	golang.org/x/sync v0.22.0
+	golang.org/x/sys v0.47.0
+	golang.org/x/text v0.40.0
 	pault.ag/go/archive v0.0.0-20200912011324-7149510a39c7
-	pault.ag/go/debian v0.18.0
+	pault.ag/go/debian v0.20.0
 )
 
 require (
