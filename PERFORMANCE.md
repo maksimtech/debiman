@@ -1,6 +1,7 @@
 # debiman performance
 
-In both cases, a Debian mirror was available via a Gigabit ethernet connection.
+The tables below describe full debiman runs. In both cases, a Debian mirror was
+available via a Gigabit ethernet connection.
 
 ## Modern machine
 
@@ -31,3 +32,24 @@ stat                   | (not measured)  | <60s
 full man extraction    | TODO            | TODO
 full man rendering     | TODO            | 2h
 **total from scratch** | TODO            | TODO
+
+## Continuous benchmarking
+
+The hot code paths of debiman are covered by Go benchmarks, which live next to
+the code they measure in files named `*_bench_test.go`:
+
+* `internal/tag`: locale to BCP-47 language tag conversion
+* `internal/manpage`: parsing manpage paths and serving paths
+* `internal/recode`: recoding non-UTF-8 manpages
+* `internal/sitemap`: writing sitemaps
+* `internal/redirect`: loading the index and resolving redirects (debiman-auxserver)
+* `cmd/debiman`: Contents parsing, re-using rendered manpages and HTML rendering
+
+To run them locally:
+
+```
+go test -bench=. ./...
+```
+
+They also run on every push and pull request and are tracked over time by
+[CodSpeed](https://app.codspeed.io/maksimtech/debiman).

@@ -2,6 +2,7 @@
 
 [![Actions workflow](https://github.com/Debian/debiman/actions/workflows/main.yml/badge.svg)](https://github.com/Debian/debiman/actions/workflows/main.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Debian/debiman)](https://goreportcard.com/report/github.com/Debian/debiman)
+[![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://app.codspeed.io/maksimtech/debiman?utm_source=badge)
 
 <img src="https://debian.github.io/debiman/debiman-logo.svg" width="300" height="280" align="right" alt="debiman logo">
 
